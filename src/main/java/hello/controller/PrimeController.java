@@ -18,21 +18,21 @@ public class PrimeController {
     @RequestMapping("/prime")
     public void prime(@RequestParam(value="dest", required=false, defaultValue="100") Integer dest, Model model) {
         model.addAttribute("dest", dest);
-        model.addAttribute("primeNumbers", determinePrime(dest));
+        model.addAttribute("primeNumbers", determinePrime(2, dest, "0, 1"));
     };
 
-    public String determinePrime(Integer dest){
-        Integer i = 2;
-        String primeNumbers = "0,1,";
+    public String determinePrime(Integer count, Integer dest, String primeNumbers){
 
-        do {
-            if(numeric.isPrime(i)){
-                primeNumbers = primeNumbers + i + ',';
-            }
-            
-            i++;
-        } while (i <= dest);
+        if(count >= dest){
+            return primeNumbers;
+        }
 
-        return primeNumbers;
-    };
+        if(numeric.isPrime(count)){
+            primeNumbers = primeNumbers + count + ',';
+        }
+        
+        count++;
+
+        return determinePrime(count, dest, primeNumbers);
+    }
 }
