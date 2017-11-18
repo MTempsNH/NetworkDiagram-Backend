@@ -5,8 +5,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import hello.Numeric;
+
 @Controller
 public class PrimeController {
+
+    @Autowired
+    Numeric numeric;
 
     @RequestMapping("/prime")
     public void prime(@RequestParam(value="dest", required=false, defaultValue="100") Integer dest, Model model) {
@@ -16,33 +23,16 @@ public class PrimeController {
 
     public String determinePrime(Integer dest){
         Integer i = 2;
-        boolean prime = true;
         String primeNumbers = "0,1,";
 
         do {
-            if(isPrime(i)){
+            if(numeric.isPrime(i)){
                 primeNumbers = primeNumbers + i + ',';
             }
-
+            
             i++;
         } while (i <= dest);
 
         return primeNumbers;
-    };
-
-    public Boolean isPrime(Integer num){
-        boolean prime = true;
-        Integer k = num-1;
-
-        do {
-            Integer mod = num % k;
-            if(mod == 0){
-                prime = false;
-            }
-
-            k--;
-        } while (k > 1);
-
-        return prime;
     };
 }
