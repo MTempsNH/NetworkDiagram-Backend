@@ -18,7 +18,7 @@ public class PrimeController {
     @RequestMapping("/prime")
     public void prime(@RequestParam(value="dest", required=false, defaultValue="100") Integer dest, Model model) {
         model.addAttribute("dest", dest);
-        model.addAttribute("primeNumbers", determinePrime(2, dest, "0, 1"));
+        model.addAttribute("primeNumbers", determinePrime(2, dest, "0,1,"));
     };
 
     public String determinePrime(Integer count, Integer dest, String primeNumbers){
